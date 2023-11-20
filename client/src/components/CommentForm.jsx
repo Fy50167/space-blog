@@ -2,8 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 
-import { SlPlus } from "react-icons/sl";
-
 import Auth from "../utils/auth";
 
 import { ADD_COMMENT } from "../../utils/mutations";
@@ -61,7 +59,7 @@ const CommentForm = () => {
                 <textarea
                   name="commentText"
                   placeholder="...comment goes here"
-                  value={commentText}
+                  value={formState.commentText}
                   className="border-2 border-gray-500 px-4 py-2 w-full"
                   onChange={handleChange}
                 ></textarea>
