@@ -1,45 +1,43 @@
-const { Schema, model } = require('mongoose');
-const dateFormat = require('../utils/dateFormat');
+const mongoose = require('mongoose');
 
-const thoughtSchema = new Schema({
-  thoughtText: {
-    type: String,
-    required: 'You need to leave a thought!',
-    minlength: 1,
-    maxlength: 280,
-    trim: true,
-  },
-  thoughtAuthor: {
+const { Schema } = mongoose;
+const bcrypt = require('bcrypt');
+const Comment = require('./Comment');
+const Reaction = require('./Reaction');
+
+
+const userSchema = new Schema({
+  username: {
     type: String,
     required: true,
     trim: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    get: (timestamp) => dateFormat(timestamp),
+  email: {
+    type: String,
+    required: true,
+    unique: true,
   },
-  comments: [
-    {
-      commentText: {
-        type: String,
-        required: true,
-        minlength: 1,
-        maxlength: 280,
-      },
-      commentAuthor: {
-        type: String,
-        required: true,
-      },
-      createdAt: {
-        type: Date,
-        default: Date.now,
-        get: (timestamp) => dateFormat(timestamp),
-      },
-    },
-  ],
+  password: {
+    type: String,
+    required: true,
+    minlength: 5,
+  },
+  comments: [Comment.schema],
 });
 
-const Thought = model('Thought', thoughtSchema);
+userSchema.pre('save', async function (next) {
+  if (this.isNew || this.isModified('password')) {
+    const saltRounds = 10;
+    this.password = await bcrypt.hash(this.password, saltRounds);
+  }
 
-module.exports = Thought;
+  next();
+});
+
+userSchema.methods.isCorrectPassword = async function (password) {
+  await bcrypt.compare(password, this.password);
+};
+
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;

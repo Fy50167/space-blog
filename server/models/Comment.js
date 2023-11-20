@@ -1,45 +1,57 @@
 const { Schema, model } = require('mongoose');
-const dateFormat = require('../utils/dateFormat');
 
-const thoughtSchema = new Schema({
-  thoughtText: {
-    type: String,
-    required: 'You need to leave a thought!',
-    minlength: 1,
-    maxlength: 280,
-    trim: true,
-  },
-  thoughtAuthor: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    get: (timestamp) => dateFormat(timestamp),
-  },
-  comments: [
-    {
-      commentText: {
-        type: String,
-        required: true,
-        minlength: 1,
-        maxlength: 280,
-      },
-      commentAuthor: {
-        type: String,
-        required: true,
+const reactionSchema = new Schema(
+  {
+      reactionText: {
+          type: String,
+          required: true,
+          maxLength: 280
       },
       createdAt: {
-        type: Date,
-        default: Date.now,
-        get: (timestamp) => dateFormat(timestamp),
+          type: Date,
+          default: Date.now,
+          get: (date) => {
+              formattedDate = date.toDateString();
+              return formattedDate
+          }
+      }
+  }
+);
+
+const commentSchema = new Schema(
+  {
+      commentText: {
+          type: String,
+          required: true,
+          minLength: 1,
+          maxLength: 280
       },
-    },
-  ],
+      commentAuthor: {
+          type: String,
+          required: true
+      },
+      createdAt: {
+          type: Date,
+          default: Date.now,
+          get: (date) => {
+              formattedDate = date.toDateString();
+              return formattedDate
+          }
+      }, 
+      reactions: [reactionSchema]
+  },
+  {
+      toJSON: {
+          virtuals: true,
+      },
+      id: false,
+  }
+);
+
+commentSchema.virtual('reactionCount').get(function () {
+  return this.reactions.length;
 });
 
-const Thought = model('Thought', thoughtSchema);
+const Comment = model('comment', commentSchema);
 
-module.exports = Thought;
+module.exports = Comment;
