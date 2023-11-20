@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
 const Comment = require('./Comment');
-const Reaction = require('./Reaction');
+// const Reaction = require('./Reaction');
 
 
 const userSchema = new Schema({
