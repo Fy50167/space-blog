@@ -1,46 +1,47 @@
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
 
-const CommentList = ({
-  comments,
-  title,
-  showTitle = true,
-  showUsername = true,
-}) => {
-  if (!thoughts.length) {
-    return <h3>No Thoughts Yet</h3>;
-  }
+import { FaComments } from "react-icons/fa";
+import { FaRegComments } from "react-icons/fa";
 
+import CommentForm from "./CommentForm";
+
+const CommentList = () => {
+  const [viewComments, setViewComments] = useState(false);
+
+  const handleViewComments = () => {
+    setViewComments((prevState) => !prevState);
+  };
   return (
-    <div>
-      {showTitle && <h3>{title}</h3>}
-      {comments &&
-        comments.map((comment) => (
-          <div key={comment._id} className="">
-            <h4 className="">
-              {showUsername ? (
-                <Link
-                  className=""
-                  to={`/profiles/${comment.commentAuthor}`}
-                >
-                  {comment.thoughtAuthor} <br />
-                  <span className=''>
-                    commented on {comment.createdAt}
-                  </span>
-                </Link>
-              ) : (
-                <>
-                  <span className=''>
-                    You commented on {comment.createdAt}
-                  </span>
-                </>
-              )}
-            </h4>
-            <div className="">
-              <p>{comment.commentText}</p>
+    <div className="w-full">
+      <div
+        className="flex w-1/8 justify-center p-2"
+        onClick={handleViewComments}
+      >
+        {viewComments ? (
+          <FaComments className="text-blue-600 text-2xl" />
+        ) : (
+          <FaRegComments className="text-blue-600 text-2xl" />
+        )}
+      </div>
+      {viewComments && (
+        <div>
+
+        <div className="bg-slate-300 rounded overflow-hidden shadow-lg m-4">
+          <div className="flex p-2 bg-slate-100 m-2 rounded-md justify-between">
+            <div>
+              <h3>First Name</h3>
+              <h4 className="ml-1 text-slate-500">@username</h4>
             </div>
-            {/* put reaction form here */}
+            <div>
+              <p className="ml-1 text-slate-500">01/01/2000</p>
+            </div>
           </div>
-        ))}
+          <p className="text-gray-700 flex p-3">Comment text goes here.</p>
+          
+        </div>
+        <CommentForm />
+        </div>
+      )}
     </div>
   );
 };

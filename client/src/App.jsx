@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 
 import ReactionForm from "./components/ReactionForm";
+import CommentList from "./components/CommentList";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import { FaRegComments } from "react-icons/fa6";
-import { FaComments } from "react-icons/fa";
+
 
 const App = () => {
   const [apodData, setApodData] = useState([]);
@@ -68,10 +68,7 @@ const App = () => {
     setLoadDate(newLoadDate);
   };
 
-  const handleViewComments = () => {
-    setViewComments((prevState) => !prevState);
 
-  };
 
   return (
     <>
@@ -100,37 +97,7 @@ const App = () => {
               <p>{apod?.date}</p>
               <p className="explanation">{apod?.explanation}</p>
             </div>
-            <div className="w-full">
-              <div
-                className="flex w-1/8 justify-center p-2"
-                onClick={handleViewComments}
-              >
-                {viewComments ? (
-                  <FaComments className="text-blue-600 text-2xl" />
-                ) : (
-                  <FaRegComments className="text-blue-600 text-2xl" />
-                )}
-              </div>
-            </div>
-            {viewComments && (
-                <div className="w-full">
-                <div className="bg-slate-300 rounded overflow-hidden shadow-lg m-4">
-                  <div className="flex p-2 bg-slate-100 m-2 rounded-md justify-between">
-                    <div>
-                      <h3>First Name</h3>
-                      <h4 className="ml-1 text-slate-500">@username</h4>
-                    </div>
-                    <div> 
-                      <p className="ml-1 text-slate-500">01/01/2000</p>
-                    </div>
-                  </div>
-                  <p className="text-gray-700 flex p-3">
-                    Comment text goes here.
-                  </p>
-                </div>
-              </div>
-            )}
-            
+            <CommentList />
           </div>
         ))}
       </div>
