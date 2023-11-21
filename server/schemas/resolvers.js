@@ -6,6 +6,9 @@ const resolvers = {
   Query: {
     user: async () => {
       return User.find({});
+    }, 
+    reactions: async () => {
+      return Reaction.find({})
     }
   },
   Mutation: {
@@ -18,13 +21,14 @@ const resolvers = {
     addComment: async (parent, {commentText, commentAuthor}, context) => {
       if (context.user) {
         const comment = await Comment.create({commentText, commentAuthor});
-
-        await User.findByIdAndUpdate(context.user._id, { $push: { comments: comment } });
-
         return comment;
       }
 
       throw AuthenticationError;
+    },//needs work
+
+    removeComment: async (parent, { commentId }) => {
+      return Comment.findOneAndDelete({ _id: commentId });
     },
 
     addReaction: async (parent, {commentId, reactionText}, context) => {
@@ -43,19 +47,15 @@ const resolvers = {
         return reaction
       }
       throw AuthenticationError;
-    },
+    },//needs work
 
-    removeComment: async (parent, { commentId }) => {
-      return Comment.findOneAndDelete({ _id: commentId });
-    },
+    removeReaction: async (parent, { reactionId }) => {
+      return Reaction.findOneAndDelete({ _id: reactionId });
+    }, 
 
-    removeReaction: async (parent, { commentId, reactionId }) => {
-      return Comment.findOneAndUpdate(
-        { _id: commentId },
-        { $pull: { reaction: { _id: reactionId } } },
-        { new: true }
-      );
-    }
+    //save photo
+
+    //remove photo
   }
 };
 
