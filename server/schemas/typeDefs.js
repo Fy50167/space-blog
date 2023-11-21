@@ -3,7 +3,11 @@ const typeDefs = `
     _id: ID
     username: String
     email: String
-    comments: [Comment]
+    saved: [Saved]
+  }
+
+  type Saved {
+    photoId: String
   }
 
   type Auth {
@@ -13,15 +17,16 @@ const typeDefs = `
 
   type Comment {
     _id: ID
+    photoId: String
     commentText: String
     commentAuthor: String
     createdAt: String
-    reactions: [Reaction]
   }
 
   type Reaction {
     _id: ID
-    reactionText: String
+    photoId: String
+    reactionAuthor: String
     createdAt: String
   }
 
@@ -37,13 +42,14 @@ const typeDefs = `
     ): Auth
 
     addComment(
+      photoId: String!
       commentText: String!,
       commentAuthor: String!,
     ): Comment
 
     addReaction(
-      commentId: ID!, 
-      reactionText: String!
+      photoId: String!
+      reactionAuthor: String!
     ): Reaction
 
     removeComment(
@@ -51,7 +57,6 @@ const typeDefs = `
     ): Comment
 
     removeReaction(
-      commentId: ID!, 
       reactionId: ID!
     ): Reaction
 

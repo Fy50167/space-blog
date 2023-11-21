@@ -15,11 +15,9 @@ const resolvers = {
       return { token, user };
     },
 
-    addComment: async (parent, {commentText, commentAuthor}, context) => {
+    addComment: async (parent, {photoId, commentText, commentAuthor}, context) => {
       if (context.user) {
-        const comment = await Comment.create({commentText, commentAuthor});
-
-        await User.findByIdAndUpdate(context.user._id, { $push: { comments: comment } });
+        const comment = await Comment.create({photoId, commentText, commentAuthor});
 
         return comment;
       }
@@ -27,18 +25,9 @@ const resolvers = {
       throw AuthenticationError;
     },
 
-    addReaction: async (parent, {commentId, reactionText}, context) => {
+    addReaction: async (parent, {photoId, reactionAuthor}, context) => {
       if (context.user) {
-        const reaction =  Comment.findOneAndUpdate(
-          { _id: commentId },
-          {
-            $addToSet: { reactions: { reactionText } },
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );        
+        const reaction = await Reaction.create({photoId, reactionAuthor});   
 
         return reaction
       }
@@ -49,12 +38,8 @@ const resolvers = {
       return Comment.findOneAndDelete({ _id: commentId });
     },
 
-    removeReaction: async (parent, { commentId, reactionId }) => {
-      return Comment.findOneAndUpdate(
-        { _id: commentId },
-        { $pull: { reaction: { _id: reactionId } } },
-        { new: true }
-      );
+    removeReaction: async (parent, { reactionId }) => {
+      return Reaction.findOneAndDelete({ _id: reactionId });
     }
   }
 };
