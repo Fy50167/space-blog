@@ -33,10 +33,10 @@ const typeDefs = `
   }
 
   type Query {
-    user(userId: ID!): User
+    me(userId: ID!): User
 
     reactions(
-      photoId: String
+      
     ): Reaction
   }
 
