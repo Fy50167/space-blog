@@ -48,12 +48,12 @@ const typeDefs = `
 
     removeComment(
       commentId: ID!
-    ): Thought
+    ): Comment
 
     removeReaction(
       commentId: ID!, 
       reactionId: ID!
-    ): Thought
+    ): Reaction
 
     login(email: String!, password: String!): Auth
   }
