@@ -5,16 +5,13 @@ const typeDefs = `
     _id: ID
     username: String
     email: String
+    password: String
     saved: [Saved]
   }
 
   type Saved {
     photoId: String
-  }
-
-  type Auth {
-    token: ID
-    user: User
+    createdAt: String
   }
 
   type Comment {
@@ -32,9 +29,17 @@ const typeDefs = `
     createdAt: String
   }
 
+  type Auth {
+    token: ID
+    user: User
+  }
+
   type Query {
+    user(username: String!): User
+    reactions: [Reaction]
+    reaction(reactionAuthor: String): [Reaction]
+    comments(photoId: String): [Comment]
     me: User
-    reactions: [Reaction]!
   }
 
   type Mutation {

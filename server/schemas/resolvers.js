@@ -4,9 +4,20 @@ const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
   Query: {
+    user: async (parent, { username }) => {
+      return User.findOne({ username });
+    },
     reactions: async () => {
       return Reaction.find({})
-    }, //for loading the reactions per image
+    }, //for loading all reactions
+    reaction: async (parent, { reactionAuthor }) => {
+      const params = reactionAuthor ? { reactionAuthor } : {};
+      return Reaction.find(params).sort({ createdAt: -1 });
+    },//for user likes
+    comments: async (parent, { photoId }) => {
+      const params = photoId ? { photoId } : {};
+      return Comment.find(params).sort({ createdAt: -1 });
+    },//for comments on each post
     me: async (parent, args, context) => {
       if (context.user) {
         return User.findOne({ _id: context.user._id });
@@ -37,29 +48,36 @@ const resolvers = {
 
       return { token, user };
     },//for login
-    addComment: async (parent, {photoId, commentText, commentAuthor}, context) => {
+    addComment: async (parent, { photoId, commentText, commentAuthor }, context) => {
       if (context.user) {
-        const comment = await Comment.create({photoId, commentText, commentAuthor});
+        const comment = await Comment.create({ photoId, commentText, commentAuthor });
 
         return comment;
       }
 
       throw AuthenticationError;
     },
-    removeComment: async (parent, { commentId }) => {
-      return Comment.findOneAndDelete({ _id: commentId });
-    },
-    addReaction: async (parent, {photoId, reactionAuthor}, context) => {
+    removeComment: async (parent, { commentId }, context) => {
       if (context.user) {
-        const reaction = await Reaction.create({photoId, reactionAuthor});   
+        return Comment.findOneAndDelete({ _id: commentId });
+      }
+
+      throw AuthenticationError;
+    },
+    addReaction: async (parent, { photoId, reactionAuthor }, context) => {
+      if (context.user) {
+        const reaction = await Reaction.create({ photoId, reactionAuthor });
 
         return reaction
       }
       throw AuthenticationError;
     },
 
-    removeReaction: async (parent, { reactionId }) => {
-      return Reaction.findOneAndDelete({ _id: reactionId });
+    removeReaction: async (parent, { reactionId }, context) => {
+      if (context.user) {
+        return Reaction.findOneAndDelete({ _id: reactionId });
+      }
+      throw AuthenticationError;
     }
   }
 };
