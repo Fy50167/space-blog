@@ -1,3 +1,5 @@
+//all need to be rewritten for the new resolvers
+
 const typeDefs = `
   type User {
     _id: ID

@@ -4,19 +4,22 @@ const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    user: async () => {
-      return User.find({});
-    }, 
     reactions: async () => {
       return Reaction.find({})
-    }
+    }, //for loading the reactions per image
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id });
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    }, //for user verification
   },
   Mutation: {
     addUser: async (parent, args) => {
       const user = await User.create(args);
       const token = signToken(user);
       return { token, user };
-    },
+    },//for login
 
     addComment: async (parent, {photoId, commentText, commentAuthor}, context) => {
       if (context.user) {
@@ -26,7 +29,7 @@ const resolvers = {
       }
 
       throw AuthenticationError;
-    },//needs work
+    },
 
     removeComment: async (parent, { commentId }) => {
       return Comment.findOneAndDelete({ _id: commentId });
@@ -39,12 +42,7 @@ const resolvers = {
         return reaction
       }
       throw AuthenticationError;
-    },//needs work
-
-    removeReaction: async (parent, { reactionId }) => {
-      return Reaction.findOneAndDelete({ _id: reactionId });
-    }, 
-
+    },
 
     removeReaction: async (parent, { reactionId }) => {
       return Reaction.findOneAndDelete({ _id: reactionId });
