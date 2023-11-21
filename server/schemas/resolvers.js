@@ -21,44 +21,32 @@ const resolvers = {
       return { token, user };
     },//for login
 
-    addComment: async (parent, {commentText, commentAuthor}, context) => {
+    addComment: async (parent, {photoId, commentText, commentAuthor}, context) => {
       if (context.user) {
-        const comment = await Comment.create({commentText, commentAuthor});
+        const comment = await Comment.create({photoId, commentText, commentAuthor});
+
         return comment;
       }
 
       throw AuthenticationError;
-    },//needs work
+    },
 
     removeComment: async (parent, { commentId }) => {
       return Comment.findOneAndDelete({ _id: commentId });
     },
 
-    addReaction: async (parent, {commentId, reactionText}, context) => {
+    addReaction: async (parent, {photoId, reactionAuthor}, context) => {
       if (context.user) {
-        const reaction =  Comment.findOneAndUpdate(
-          { _id: commentId },
-          {
-            $addToSet: { reactions: { reactionText } },
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );        
+        const reaction = await Reaction.create({photoId, reactionAuthor});   
 
         return reaction
       }
       throw AuthenticationError;
-    },//needs work
+    },
 
     removeReaction: async (parent, { reactionId }) => {
       return Reaction.findOneAndDelete({ _id: reactionId });
-    }, 
-
-    //STILL NEED save photo
-
-    //STILL NEED remove photo
+    }
   }
 };
 
