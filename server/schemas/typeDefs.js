@@ -1,4 +1,4 @@
-//all need to be rewritten for the new resolvers
+const { gql } = require('apollo-server-express');
 
 const typeDefs = `
   type User {
@@ -44,6 +44,11 @@ const typeDefs = `
       password: String!,
     ): Auth
 
+    login(
+      email: String!, 
+      password: String!
+      ): Auth
+
     addComment(
       photoId: String!
       commentText: String!,
@@ -62,8 +67,6 @@ const typeDefs = `
     removeReaction(
       reactionId: ID!
     ): Reaction
-
-    login(email: String!, password: String!): Auth
   }
 `;
 

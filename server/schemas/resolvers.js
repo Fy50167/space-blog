@@ -19,8 +19,24 @@ const resolvers = {
       const user = await User.create(args);
       const token = signToken(user);
       return { token, user };
-    },//for login
+    },//for sign up
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
 
+      if (!user) {
+        throw AuthenticationError;
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw AuthenticationError;
+      }
+
+      const token = signToken(user);
+
+      return { token, user };
+    },//for login
     addComment: async (parent, {photoId, commentText, commentAuthor}, context) => {
       if (context.user) {
         const comment = await Comment.create({photoId, commentText, commentAuthor});
@@ -30,11 +46,9 @@ const resolvers = {
 
       throw AuthenticationError;
     },
-
     removeComment: async (parent, { commentId }) => {
       return Comment.findOneAndDelete({ _id: commentId });
     },
-
     addReaction: async (parent, {photoId, reactionAuthor}, context) => {
       if (context.user) {
         const reaction = await Reaction.create({photoId, reactionAuthor});   
