@@ -3,8 +3,23 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const bcrypt = require('bcrypt');
 const Comment = require('./Comment');
-// const Reaction = require('./Reaction');
 
+const savedSchema = new Schema(
+  {
+      photoId: {
+          type: String,
+          required: true,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+        get: (date) => {
+            formattedDate = date.toDateString();
+            return formattedDate
+        }
+    },
+  }
+);
 
 const userSchema = new Schema({
   username: {
@@ -22,7 +37,7 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
-  comments: [Comment.schema],
+  saved: [savedSchema]
 });
 
 userSchema.pre('save', async function (next) {

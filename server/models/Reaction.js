@@ -1,14 +1,13 @@
 const { Schema, model } = require('mongoose');
 
-const commentSchema = new Schema(
+const reactionSchema = new Schema(
   {
-      commentText: {
+      photoId: {
           type: String,
           required: true,
           minLength: 1,
-          maxLength: 280
       },
-      commentAuthor: {
+      reactionAuthor: {
           type: String,
           required: true
       },
@@ -33,6 +32,6 @@ const commentSchema = new Schema(
 //   return this.reactions.length;
 // });
 
-const Comment = model('comment', commentSchema);
+const Reaction = model('reaction', reactionSchema);
 
-module.exports = Comment;
+module.exports = Reaction;
