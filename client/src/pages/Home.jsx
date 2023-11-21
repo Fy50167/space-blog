@@ -68,53 +68,52 @@ export default function Home() {
 
 
     return (
-        <div>
+        <div className = 'page-content'>
             <nav className="navbar">
-            <div className="nav-content">
-            <div className="nav-logo">Space Blog</div>
-            <button className="login-btn">Login</button>
-            </div>
-        </nav>
+                <div className="nav-content">
+                    <div className="nav-logo">Space Blog</div>
+                    <button className="login-btn">Login</button>
+                </div>
+             </nav>
 
-        <div className="gallery">
-            {apodData.map((apod, index) => (
-            <div key={index} className="item">
-                {apod && <img src={apod.url} alt={apod.title} />}
-                <div className="flex w-full bg-slate-400 py-2">
-                <ReactionForm />
-                <div className="flex w-1/2 p-2 text-white mr-2 justify-end">
-                    <FaMagnifyingGlass
-                    className="text-2xl"
-                    onClick={() => openPopup(apod)}
-                    />
+            <div className="gallery">
+                {apodData.map((apod, index) => (
+                <div key={index} className="item">
+                    {apod && <img src={apod.url} alt={apod.title} />}
+                    <div className="flex w-full bg-slate-400 py-2">
+                    <ReactionForm />
+                    <div className="flex w-1/2 p-2 text-white mr-2 justify-end">
+                        <FaMagnifyingGlass
+                        className="text-2xl"
+                        onClick={() => openPopup(apod)}
+                        />
+                    </div>
+                    </div>
+                    <div className="caption">
+                    <h3>{apod?.title}</h3>
+                    <p>{apod?.date}</p>
+                    <p className="explanation">{apod?.explanation}</p>
+                    </div>
+                    <CommentList />
                 </div>
-                </div>
-                <div className="caption">
-                <h3>{apod?.title}</h3>
-                <p>{apod?.date}</p>
-                <p className="explanation">{apod?.explanation}</p>
-                </div>
-                <CommentList />
+                ))}
             </div>
-            ))}
-        </div>
 
-        {selectedApod && (
-            <div className="popup" onClick={closePopup}>
-            <div className="popup-content">
-                <img src={selectedApod.url} alt={selectedApod.title} />
-                <div className="popup-caption">
-                <h3>{selectedApod.title}</h3>
-                <p>{selectedApod.date}</p>
-                <p>{selectedApod.explanation}</p>
+            {selectedApod && (
+                <div className="popup" onClick={closePopup}>
+                    <div className="popup-content">
+                        <img src={selectedApod.url} alt={selectedApod.title} />
+                        <div className="popup-caption">
+                        <h3>{selectedApod.title}</h3>
+                        <p>{selectedApod.date}</p>
+                        <p>{selectedApod.explanation}</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            </div>
-        )}
-
-        <button className="show-more-btn" onClick={handleShowMore}>
-            Show More
-        </button>
+            )}
+                <button className="show-more-btn" onClick={handleShowMore}>
+                    Show More
+                </button>
         </div>
     )
 };

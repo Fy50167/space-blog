@@ -145,3 +145,7 @@ body {
   cursor: pointer;
 }
 
+.page-content {
+  width: 100%;
+}
+
