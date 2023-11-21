@@ -35,7 +35,7 @@ const typeDefs = `
   type Query {
     me: User
     reactions: [Reaction]!
-}
+  }
 
   type Mutation {
     addUser(
