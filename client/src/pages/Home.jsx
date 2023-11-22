@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { Link } from 'react-router-dom';
 import ReactionForm from "../components/ReactionForm";
 import CommentList from "../components/CommentList";
 import { FaMagnifyingGlass } from "react-icons/fa6";
@@ -72,7 +72,7 @@ export default function Home() {
             <nav className="navbar">
                 <div className="nav-content">
                     <div className="nav-logo">Space Blog</div>
-                    <button className="login-btn">Login</button>
+                    <Link to="/login" className="login-btn">Login</Link>
                 </div>
              </nav>
 
