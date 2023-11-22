@@ -1,20 +1,17 @@
-//all need to be rewritten for the new resolvers
+const { gql } = require('apollo-server-express');
 
 const typeDefs = `
   type User {
     _id: ID
     username: String
     email: String
+    password: String
     saved: [Saved]
   }
 
   type Saved {
     photoId: String
-  }
-
-  type Auth {
-    token: ID
-    user: User
+    createdAt: String
   }
 
   type Comment {
@@ -32,9 +29,17 @@ const typeDefs = `
     createdAt: String
   }
 
+  type Auth {
+    token: ID
+    user: User
+  }
+
   type Query {
+    user(username: String!): User
+    reactions: [Reaction]
+    reaction(reactionAuthor: String): [Reaction]
+    comments(photoId: String): [Comment]
     me: User
-    reactions: [Reaction]!
   }
 
   type Mutation {
@@ -43,6 +48,11 @@ const typeDefs = `
       email: String!,
       password: String!,
     ): Auth
+
+    login(
+      email: String!, 
+      password: String!
+      ): Auth
 
     addComment(
       photoId: String!
@@ -62,8 +72,6 @@ const typeDefs = `
     removeReaction(
       reactionId: ID!
     ): Reaction
-
-    login(email: String!, password: String!): Auth
   }
 `;
 
