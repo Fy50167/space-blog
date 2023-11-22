@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Error from './pages/Error';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import ProfilePage from './pages/ProfilePage';
 
 const router = createBrowserRouter([
   {
