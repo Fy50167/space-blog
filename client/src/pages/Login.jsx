@@ -7,9 +7,8 @@ import Auth from "../utils/auth";
 
 const Login = (props) => {
   const [formState, setFormState] = useState({ email: "", password: "" });
-  const [login, { error }] = useMutation(LOGIN_USER);
-  const [data, setData] = useState(null);
-
+  const [loginUser, { error }] = useMutation(LOGIN_USER);
+  
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -25,11 +24,11 @@ const Login = (props) => {
     event.preventDefault();
     console.log(formState);
     try {
-      const { data } = await login({
+      const { data } = await loginUser({
         variables: { ...formState },
       });
-      setData(data);
-      Auth.login(data.login.token);
+      
+      Auth.login(data.loginUser.token);
     } catch (e) {
       console.error(e);
     }
@@ -42,54 +41,43 @@ const Login = (props) => {
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
-      <div className="col-12 col-lg-10">
-        <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Login</h4>
-          <div className="card-body">
-            {data ? (
-              <p>
-                Success! You may now head{" "}
-                <Link to="/">back to the homepage.</Link>
-              </p>
-            ) : (
-              <form onSubmit={handleFormSubmit}>
-                <input
-                  className="form-input"
-                  placeholder="Your email"
-                  name="email"
-                  type="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                />
-                <input
-                  className="form-input"
-                  placeholder="******"
-                  name="password"
-                  type="password"
-                  value={formState.password}
-                  onChange={handleChange}
-                />
-                <button
-                  className="btn btn-block btn-info"
-                  style={{ cursor: "pointer" }}
-                  type="submit"
-                >
-                  Submit
+    <div className="">
+        <nav className="navbar">
+            <div className="nav-content">
+                <div className="nav-logo">Space Blog</div>
+                <Link to="/" className="login-btn">
+                    Home
+                </Link>
+            </div>
+        </nav>
+        <form onSubmit={handleFormSubmit} className="page-content bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div className="mb-4">
+                <label className="block text-white text-sm font-bold mb-2" htmlFor="email-address">
+                    Email Address
+                </label>
+                <input onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email-address" name="email" type="text" defaultValue={formState.email} placeholder="example@gmail.com"/>
+            </div>
+            <div className="mb-6">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                    Password
+                </label>
+                <input onChange={handleChange} className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" defaultValue={formState.password} placeholder="******"/>
+            </div>
+            <div className="flex items-center justify-between">
+                <button  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    Sign In
                 </button>
-              </form>
-            )}
-
-            {error && (
-              <div className="my-3 p-3 bg-danger text-white">
-                {error.message}
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </main>
+                <Link to="/signup" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" >
+                    Sign Up
+                </Link>
+             </div>
+        </form>
+        <p className="text-center text-gray-500 text-xs">
+            &copy;2020 Acme Corp. All rights reserved.
+        </p>
+    </div>
   );
 };
+    
 
 export default Login;
