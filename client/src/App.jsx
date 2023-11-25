@@ -6,7 +6,7 @@ import {
   createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-
+import Navigation from "./components/Navigation";
 import { Provider } from "react-redux";
 import store from "./utils/store";
 
@@ -35,6 +35,7 @@ export default function App() {
       <div>
         <Provider store={store}>
           <main>
+            <Navigation />
             <Outlet />
           </main>
         </Provider>
