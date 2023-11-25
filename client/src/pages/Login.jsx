@@ -41,16 +41,8 @@ const Login = (props) => {
   };
 
   return (
-    <div className="">
-        <nav className="navbar">
-            <div className="nav-content">
-                <div className="nav-logo">Space Blog</div>
-                <Link to="/" className="login-btn">
-                    Home
-                </Link>
-            </div>
-        </nav>
-        <form onSubmit={handleFormSubmit} className="page-content bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div className="page-content fill-page">
+        <form onSubmit={handleFormSubmit} className="login-form bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div className="mb-4">
                 <label className="block text-white text-sm font-bold mb-2" htmlFor="email-address">
                     Email Address
@@ -73,7 +65,7 @@ const Login = (props) => {
              </div>
         </form>
         <p className="text-center text-gray-500 text-xs">
-            &copy;2020 Acme Corp. All rights reserved.
+            2023 Space Blog
         </p>
     </div>
   );

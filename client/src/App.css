@@ -10,6 +10,7 @@ body {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   padding: 10px 20px;
   width: 100%; /* Full width */
+  position: fixed;
 }
 
 .nav-content {
@@ -27,6 +28,7 @@ body {
   gap: 20px;
   padding: 20px;
   width: 100%; /* Ensure gallery takes full width */
+  padding-top: 100px;
 }
 
 
@@ -145,11 +147,31 @@ body {
   cursor: pointer;
 }
 
+
+
 .page-content {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.fill-page {
+  height: 100vh;
+}
+
+.login-form {
+  width: 90%;
 }
 
 .page-height {
   height: 100%;
+}
+
+@media screen and (max-width: 700px) {
+  .item {
+    width: 100%;
+  }
 }
 
