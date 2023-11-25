@@ -44,7 +44,7 @@ const Login = (props) => {
     <div className="page-content fill-page">
         <form onSubmit={handleFormSubmit} className="login-form bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div className="mb-4">
-                <label className="block text-white text-sm font-bold mb-2" htmlFor="email-address">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email-address">
                     Email Address
                 </label>
                 <input onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email-address" name="email" type="text" defaultValue={formState.email} placeholder="example@gmail.com"/>
