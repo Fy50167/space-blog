@@ -47,13 +47,13 @@ const Login = (props) => {
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email-address">
                     Email Address
                 </label>
-                <input onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email-address" name="email" type="text" defaultValue={formState.email} placeholder="example@gmail.com"/>
+                <input onChange={handleChange} className="bg-white shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email-address" name="email" type="text" defaultValue={formState.email} placeholder="example@gmail.com"/>
             </div>
             <div className="mb-6">
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                     Password
                 </label>
-                <input onChange={handleChange} className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" defaultValue={formState.password} placeholder="******"/>
+                <input onChange={handleChange} className="bg-white appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" defaultValue={formState.password} placeholder="******"/>
             </div>
             <div className="flex items-center justify-between">
                 <button  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
