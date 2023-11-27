@@ -27,3 +27,16 @@ export const QUERY_REACTIONS = gql`
     }
   }
 `;
+
+ //GET__COMMENTS
+ export const QUERY_COMMENTS = gql `
+  query getComments {
+    comments {
+      _id
+      photoId
+      commentText
+      commentAuthor
+      createdAt
+    }
+  }
+ `;

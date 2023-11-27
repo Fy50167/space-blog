@@ -1,5 +1,6 @@
 const { User, Comment, Reaction } = require('../models');
-const { signToken, AuthenticationError } = require('../utils/auth');
+const { AuthenticationError } = require('apollo-server-express');
+const { signToken} = require('../utils/auth');
 
 
 const resolvers = {
@@ -15,8 +16,8 @@ const resolvers = {
       return Reaction.find(params).sort({ createdAt: -1 });
     },//for user likes
     comments: async (parent, { photoId }) => {
-      const params = photoId ? { photoId } : {};
-      return Comment.find(params).sort({ createdAt: -1 });
+      //const params = photoId ?  { photoId } : {};
+      return Comment.find({ photoId }).sort({ createdAt: -1 });
     },//for comments on each post
     me: async (parent, args, context) => {
       if (context.user) {
@@ -35,13 +36,13 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw AuthenticationError;
+        throw new AuthenticationError('User not found!');
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw AuthenticationError;
+        throw new AuthenticationError('Incorrect Password!');
       }
 
       const token = signToken(user);

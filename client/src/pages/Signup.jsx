@@ -31,7 +31,8 @@ const Signup = () => {
       const { data } = await addUser({
         variables: { ...formState },
       });
-
+      console.log(formState)
+      console.log(data.addUser.user,data.addUser.token );
       Auth.login(data.addUser.token);
     } catch (e) {
       console.error(e);
@@ -64,7 +65,7 @@ const Signup = () => {
               name="username"
               type="text"
               defaultValue={formState.username}
-              placeholder="Jane Doe"
+              placeholder="jane_doe"
             />
           </div>
         </div>
@@ -106,7 +107,7 @@ const Signup = () => {
               name="password"
               type="password"
               defaultValue={formState.password}
-              placeholder="******"
+              placeholder="*********"
             />
           </div>
         </div>
