@@ -49,6 +49,28 @@ const resolvers = {
 
       return { token, user };
     },//for login
+    saveImage: async (parent, { photoId }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $push: { savedImages: { photoId } }},
+          { new: true }
+        );
+        return updatedUser;
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    removeImage: async (parent, { photoId }, context) => {
+      if (context.user) {
+        const updatedUser = await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $pull: { savedImages: { photoId }}},
+          { new: true }
+        );
+        return updatedUser;
+      }
+      throw new AuthenticationError('Login required!');
+    },
     addComment: async (parent, { photoId, commentText, commentAuthor }, context) => {
       if (context.user) {
         const comment = await Comment.create({ photoId, commentText, commentAuthor });
