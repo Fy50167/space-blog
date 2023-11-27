@@ -25,6 +25,7 @@ const CommentForm = () => {
         variables: {
           commentText,
           commentAuthor: Auth.getProfile().authenticatedPerson.username,
+          //add photoId
         },
       });
       console.log(commentResponse);

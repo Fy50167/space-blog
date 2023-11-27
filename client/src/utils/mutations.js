@@ -19,19 +19,41 @@ export const ADD_USER = gql`
       user {
         _id
         username
+        email
+        imageCount
+        savedImages {
+          photoId
+        }
       }
     }
   }
 `;
 
-//once they are completed on the server side..... finish below
+export const SAVE_IMAGE = gql`
+  mutation saveImage($photoId: ID!) {
+    saveImage(photoId: $photoId) {
+      _id
+      username
+      email
+      savedImages {
+        photoId
+      }
+    }
+  }
+`;
 
-//save image (Do we need to make mutations for these? Wouldn't we need to make an Image model if so?)
-//remove image
-
-
-// (The queries for these mutations are probably wrong, not sure what's supposed to go in them)
-//add comment
+export const REMOVE_IMAGE = gql`
+  mutation removeImage($photoId: ID!) {
+    removeImage(photoId: $photoId) {
+      _id
+      username
+      email
+      savedImages {
+        photoId
+      }
+    }
+  }
+`;
 
 export const ADD_COMMENT = gql`
   mutation addComment($photoId: String!, $commentText: String!, $commentAuthor: String!) {

@@ -1,15 +1,15 @@
-//const { gql } = require('apollo-server-express');
+const { gql } = require('apollo-server-express');
 
-const typeDefs = `
+const typeDefs = gql `
   type User {
-    _id: ID
-    username: String
-    email: String
-    password: String
-    saved: [Saved]
+    _id: ID!
+    username: String!
+    email: String!
+    imageCount: Int
+    savedImages: [Image]
   }
 
-  type Saved {
+  type Image{
     photoId: String
     createdAt: String
   }
@@ -30,7 +30,7 @@ const typeDefs = `
   }
 
   type Auth {
-    token: ID
+    token: ID!
     user: User
   }
 
@@ -52,7 +52,16 @@ const typeDefs = `
     login(
       email: String!, 
       password: String!
-      ): Auth
+    ): Auth
+
+    saveImage(
+      photoId: String,
+      createdAt: String
+    ): User
+
+    removeImage(
+      photoId: ID!
+    ): User
 
     addComment(
       photoId: String!
