@@ -23,8 +23,9 @@ const CommentForm = () => {
     // try {
     //   const { data } = addComment({
     //     variables: {
+    //       photoId,
     //       commentText,
-    //       commentAuthor: Auth.getProfile().authenticatedPerson.username,
+    //       commentAuthor: Auth.getProfile().data.username,
     //     },
     //   });
     //   setCommentText("");
