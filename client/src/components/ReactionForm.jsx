@@ -21,6 +21,10 @@ const ReactionForm = () => {
   const [like, setLike] = useState(false);
   const [save, setSave] = useState(false);
 
+  const saveImage = (() => {
+    setSave((prevState) => !prevState);
+  })
+
   const handleLikes = async (event) => {
     event.preventDefault();
 
@@ -56,7 +60,7 @@ const ReactionForm = () => {
         </h2>
         <h2 className="w-1/8 p-2 text-white">{reactions.length}</h2>
         <h2
-          onClick={() => setSave((prevState) => !prevState)}
+          onClick={saveImage}
           className="w-1/4 p-2"
         >
           {save ? (

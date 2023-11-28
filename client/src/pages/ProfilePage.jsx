@@ -43,7 +43,8 @@ export default function ProfilePage() {
           </div>
         :
           <div className = 'profile-gallery'>
-            This is your gallery!
+            Saved Images
+           
           </div>
         )}
       </div>
