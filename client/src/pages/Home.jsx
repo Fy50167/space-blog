@@ -86,7 +86,7 @@ export default function Home() {
               <p>{apod?.date}</p>
               <p className="explanation">{apod?.explanation}</p>
             </div>
-            <CommentList />
+            <CommentList photoId={apod?.date}/>
           </div>
         ))}
       </div>

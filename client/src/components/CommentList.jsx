@@ -5,7 +5,7 @@ import { FaRegComments } from "react-icons/fa";
 
 import CommentForm from "./CommentForm";
 
-const CommentList = () => {
+const CommentList = ({ photoId }) => {
   const [viewComments, setViewComments] = useState(false);
 
   const handleViewComments = () => {
@@ -39,7 +39,7 @@ const CommentList = () => {
           <p className="text-gray-700 flex p-3">Comment text goes here.</p>
           
         </div>
-        <CommentForm />
+        <CommentForm photoId ={photoId}/>
         </div>
       )}
     </div>
