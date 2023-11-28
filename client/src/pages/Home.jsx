@@ -43,7 +43,7 @@ export default function Home() {
 
   const getLastNDates = (startDate, n) => {
     const dates = [];
-    for (let i = 0; i < n; i++) {
+    for (let i = 1; i <= n; i++) {
       const date = new Date(startDate);
       date.setDate(date.getDate() - i);
       dates.push(date.toISOString().split("T")[0]);
