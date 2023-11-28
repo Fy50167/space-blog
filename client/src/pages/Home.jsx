@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 
-import ReactionForm from "../components/ReactionForm";
+import ReactionForm from "../components/Reactions/ReactionForm";
 import CommentList from "../components/CommentList";
 
 import { FaMagnifyingGlass } from "react-icons/fa6";
@@ -69,13 +69,12 @@ export default function Home() {
 
   return (
     <div className="page-content">
-
       <div className="gallery">
         {apodData.map((apod, index) => (
           <div key={index} className="item">
             {apod && <img src={apod.url} alt={apod.title} />}
             <div className="flex w-full bg-slate-400 py-2">
-              <ReactionForm photoId={apod?.date}/>
+              <ReactionForm photoId={apod?.date} />
               <div className="flex w-1/2 p-2 text-white mr-2 justify-end">
                 <FaMagnifyingGlass
                   className="text-2xl"
@@ -89,12 +88,17 @@ export default function Home() {
               <p className="explanation">{apod?.explanation}</p>
             </div>
             {Auth.loggedIn() ? (
-                <>
-                  <CommentList photoId={apod?.date}/>
-                </>
-              ) : (
-                <Link to="/login" className="bg-blue-200 text-white rounded px-4 py-2">Login to view comments</Link>
-              )}
+              <>
+                <CommentList photoId={apod?.date} />
+              </>
+            ) : (
+              <Link
+                to="/login"
+                className="bg-blue-200 text-white rounded px-4 py-2"
+              >
+                Login to view comments
+              </Link>
+            )}
           </div>
         ))}
       </div>
