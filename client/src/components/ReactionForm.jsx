@@ -12,8 +12,10 @@ import { ADD_REACTION } from "../utils/mutations";
 
 import Auth from '../utils/auth';
 
-const ReactionForm = () => {
-  const { loading, data } = useQuery(QUERY_REACTIONS);
+const ReactionForm = ({ photoId }) => {
+  const { loading, data } = useQuery(QUERY_REACTIONS, {
+    variables: { photoId: photoId },
+  });
   const reactions = data?.reactions || [];
 
   const [addReaction, {error}] = useMutation(ADD_REACTION);
@@ -25,13 +27,6 @@ const ReactionForm = () => {
     event.preventDefault();
 
     try {
-      const { data } = await addReaction({
-        variables: {
-            reactionValue,
-            // Run the getProfile() method to get access to the unencrypted token value in order to retrieve the user's username
-            reactionAuthor: Auth.getProfile().authenticatedPerson.username
-          },
-       });
 
       setLike((prevState) => !prevState);
     } catch (err) {
@@ -45,7 +40,7 @@ const ReactionForm = () => {
   return (
       <div className="flex w-1/2 ml-2">
         <h2
-          onClick={() => setLike((prevState) => !prevState)}
+          onClick={handleLikes}
           className="flex w-1/8 justify-between p-2"
         >
           {like ? (

@@ -39,12 +39,10 @@ export const QUERY_REACTION = gql`
  `;
 
 export const QUERY_REACTIONS = gql`
- query Reactions {
-  reactions {
-    createdAt
-    photoId
-    reactionAuthor
+query Reactions($photoId: String) {
+  reactions(photoId: $photoId) {
     _id
+    reactionAuthor
   }
 }
  `;

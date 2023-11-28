@@ -19,7 +19,6 @@ const CommentList = ({ photoId }) => {
     variables: { photoId: photoId },
   });
   const comments = data?.comments || [];
-  console.log(comments);
 
   const handleViewComments = () => {
     setViewComments((prevState) => !prevState);
@@ -67,10 +66,10 @@ const CommentList = ({ photoId }) => {
                       </h4>
                     </div>
                     <div>
-                      <p className="ml-1 text-slate-500">{comment.createdAt}</p>
+                      <p className="ml-1 text-sm p-1 text-slate-500">{comment.createdAt}</p>
                     </div>
                   </div>
-                  <p className="text-gray-700 flex p-3">
+                  <p className="text-gray-700 flex p-3 text-sm">
                     {comment.commentText}
                   </p>
                   <div className="p-2">

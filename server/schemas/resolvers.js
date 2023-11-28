@@ -8,8 +8,8 @@ const resolvers = {
     user: async (parent, { username }) => {
       return User.findOne({ username });
     },
-    reactions: async () => {
-      return Reaction.find({})
+    reactions: async (parent, { photoId }) => {
+      return Reaction.find({ photoId });
     }, //for loading all reactions
     reaction: async (parent, { reactionAuthor }) => {
       const params = reactionAuthor ? { reactionAuthor } : {};
