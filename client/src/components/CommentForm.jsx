@@ -13,6 +13,7 @@ const CommentForm= ({photoId} ) => {
   const [characterCount, setCharacterCount] = useState(0);
 
   const { loading, data } = useQuery(GET_ME);
+  //const [addComment, { error }] = useMutation(ADD_COMMENT);
   const [addComment, { error }] = useMutation(ADD_COMMENT);
 
   const userData = data?.me || {};
@@ -21,19 +22,23 @@ const CommentForm= ({photoId} ) => {
     event.preventDefault();
     console.log(userData);
     console.log(photoId, commentText, userData.username);
+
+    const commentData = {
+      photoId, 
+      commentText, 
+      commentAuthor: userData.username
+    }
+    console.log(commentData);
     
     try {
       const commentResponse = await addComment({
-        variables: {
-          photoId: photoId,
-          commentText,
-          commentAuthor: userData.username,
-        },
+        variables: {...commentData},
       });
       console.log(commentResponse);
       setCommentText("");
     } catch (err) {
-       console.error(err);
+       //console.error(err);
+       console.log(err.name, err.message);
     };
      
     //console.log("comment submitted");
