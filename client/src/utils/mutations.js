@@ -66,7 +66,6 @@ mutation AddComment($photoId: String!, $commentText: String!, $commentAuthor: St
 `;
 
 //remove comment
-
 export const REMOVE_COMMENT = gql`
   mutation removeComment($commentId: ID!) {
     removeComment(commentId: $commentId) {
@@ -80,15 +79,12 @@ export const REMOVE_COMMENT = gql`
 //add reaction
 
 export const ADD_REACTION = gql`
-  mutation addReaction($photoId: String!, $reactionAuthor: String!) {
-    addReaction(photoId: $photoId, reactionAuthor: $reactionAuthor) {
-      reaction {
-        photoId
-        reactionAuthor
-      }
-
-    }
+mutation AddReaction($photoId: String!, $reactionAuthor: String!) {
+  addReaction(photoId: $photoId, reactionAuthor: $reactionAuthor) {
+    photoId
+    reactionAuthor
   }
+}
 `;
 
 //remove reaction
@@ -99,7 +95,6 @@ export const REMOVE_REACTION = gql`
       reaction {
         reactionId
       }
-
     }
   }
 `;
