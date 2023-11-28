@@ -153,8 +153,6 @@ body {
   cursor: pointer;
 }
 
-
-
 .page-content {
   width: 100%;
   display: flex;
@@ -182,6 +180,41 @@ body {
   font-size: 16px;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  padding-top: 80px;
+  width: 100%; 
+  color: black;
+  height: 30vh;
+  border-bottom: 1px solid grey;
+}
+
+.profile-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.profile-page {
+  justify-content: start;
+}
+
+.empty-gallery {
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  font-size: 48px;
+  font-weight: bold;
 }
 
 @media screen and (max-width: 700px) {

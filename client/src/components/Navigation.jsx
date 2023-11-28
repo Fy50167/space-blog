@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import Auth from '../utils/auth';
 
+
 export default function Navigation() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const location = useLocation();
 
+
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     }
+    
 
     const getNavLinkClass = (path) => {
         return location.pathname === path ? 'nav-link-active bg-gray-400' : 'nav-link bg-[#f0f0f0]';
@@ -22,7 +25,7 @@ export default function Navigation() {
                     
                     <div className={`md:flex ${isMobileMenuOpen ? "flex" : "hidden"} flex-col md:flex-row`}>
                         <Link to="/" className={`${getNavLinkClass('/')} text-black rounded px-4 py-2 md:mr-4`}>Home</Link>
-                        <Link to="/profile" className={`${getNavLinkClass('/profile')} text-black rounded px-4 py-2 md:mr-4`}>Profile</Link>
+                        <Link to={`/profile/${Auth.getProfile().data._id}`} className={`${getNavLinkClass(`/profile/${Auth.getProfile().data._id}`)} text-black rounded px-4 py-2 md:mr-4`}>Profile</Link>
                         {Auth.loggedIn() ? (
                             <>
                             <Link className = 'bg-green-500 text-white rounded px-4 py-2' onClick={Auth.logout}>Logout</Link>
