@@ -1,6 +1,5 @@
 import { useState } from "react";
-//import { Link } from "react-router-dom";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 
 import Auth from "../utils/auth";
 
@@ -9,23 +8,26 @@ import { GET_ME } from "../utils/queries";
 
 import { IoAddCircle } from "react-icons/io5";
 
-const CommentForm = () => {
+const CommentForm= ({photoId} ) => {
   const [commentText, setCommentText] = useState("");
   const [characterCount, setCharacterCount] = useState(0);
 
-  const [addComment, { error, data }] = useMutation(ADD_COMMENT);
+  const { loading, data } = useQuery(GET_ME);
+  const [addComment, { error }] = useMutation(ADD_COMMENT);
+
+  const userData = data?.me || {};
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    console.log(userData);
+    console.log(photoId, commentText, userData.username);
     
-    
-    // Not sure how we're supposed to get the photoId since we need to pass that into the added comment
     try {
-      const commentResponse = addComment({
+      const commentResponse = await addComment({
         variables: {
+          photoId: photoId,
           commentText,
-          commentAuthor: Auth.getProfile().authenticatedPerson.username,
-          //add photoId
+          commentAuthor: userData.username,
         },
       });
       console.log(commentResponse);
@@ -34,7 +36,7 @@ const CommentForm = () => {
        console.error(err);
     };
      
-    console.log("form submitted");
+    //console.log("comment submitted");
   };
 
   const handleChange = (event) => {
