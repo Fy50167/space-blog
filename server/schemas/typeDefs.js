@@ -64,13 +64,13 @@ const typeDefs = gql `
     ): User
 
     addComment(
-      photoId: String!
+      photoId: String!,
       commentText: String!,
-      commentAuthor: String!,
+      commentAuthor: String!
     ): Comment
 
     addReaction(
-      photoId: String!
+      photoId: String!,
       reactionAuthor: String!
     ): Reaction
 

@@ -56,15 +56,13 @@ export const REMOVE_IMAGE = gql`
 `;
 
 export const ADD_COMMENT = gql`
-  mutation addComment($photoId: String!, $commentText: String!, $commentAuthor: String!) {
-    addComment(photoId: $photoId, commentText: $commentText, commentAuthor: $commentAuthor) {
-      comment {
-        photoId
-        commentText
-        commentAuthor
-      }
-    }
+mutation AddComment($photoId: String!, $commentText: String!, $commentAuthor: String!) {
+  addComment(photoId: $photoId, commentText: $commentText, commentAuthor: $commentAuthor) {
+    photoId
+    commentText
+    commentAuthor
   }
+}
 `;
 
 //remove comment

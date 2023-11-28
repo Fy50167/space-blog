@@ -74,18 +74,17 @@ const resolvers = {
     addComment: async (parent, { photoId, commentText, commentAuthor }, context) => {
       if (context.user) {
         const comment = await Comment.create({ photoId, commentText, commentAuthor });
-
         return comment;
       }
 
-      throw AuthenticationError;
+      throw new AuthenticationError('comment added failed');
     },
     removeComment: async (parent, { commentId }, context) => {
       if (context.user) {
         return Comment.findOneAndDelete({ _id: commentId });
       }
 
-      throw AuthenticationError;
+      throw new AuthenticationError('comment removed failed');
     },
     addReaction: async (parent, { photoId, reactionAuthor }, context) => {
       if (context.user) {
