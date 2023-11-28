@@ -16,27 +16,35 @@ export const GET_ME = gql`
   }
 `;
 
-//GET_REACTIONS
-export const QUERY_REACTIONS = gql`
-  query getReactions {
-    reactions {
-      _id
-      photoId
-      reactionAuthor
-      createdAt
-    }
+//GET__COMMENTS
+export const QUERY_COMMENTS = gql`
+ query Comments($photoId: String) {
+  comments(photoId: $photoId) {
+    commentAuthor
+    commentText
+    createdAt
+    _id
   }
-`;
+}
+ `;
 
- //GET__COMMENTS
- export const QUERY_COMMENTS = gql `
-  query getComments {
-    comments {
-      _id
-      photoId
-      commentText
-      commentAuthor
-      createdAt
-    }
+//GET REACTIONS FROM USER
+export const QUERY_REACTION = gql`
+ query Reaction($reactionAuthor: String) {
+  reaction(reactionAuthor: $reactionAuthor) {
+    photoId
+    reactionAuthor
   }
+}
+ `;
+
+export const QUERY_REACTIONS = gql`
+ query Reactions {
+  reactions {
+    createdAt
+    photoId
+    reactionAuthor
+    _id
+  }
+}
  `;

@@ -17,7 +17,7 @@ const resolvers = {
     },//for user likes
     comments: async (parent, { photoId }) => {
       //const params = photoId ?  { photoId } : {};
-      return Comment.find({ photoId }).sort({ createdAt: -1 });
+      return Comment.find({ photoId }).sort({ createdAt: 1 });
     },//for comments on each post
     me: async (parent, args, context) => {
       if (context.user) {
