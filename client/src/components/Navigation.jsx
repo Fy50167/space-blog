@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
+import Auth from '../utils/auth';
 
 export default function Navigation() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -22,7 +23,13 @@ export default function Navigation() {
                     <div className={`md:flex ${isMobileMenuOpen ? "flex" : "hidden"} flex-col md:flex-row`}>
                         <Link to="/" className={`${getNavLinkClass('/')} text-black rounded px-4 py-2 md:mr-4`}>Home</Link>
                         <Link to="/profile" className={`${getNavLinkClass('/profile')} text-black rounded px-4 py-2 md:mr-4`}>Profile</Link>
-                        <Link to="/login" className="bg-green-500 text-white rounded px-4 py-2">Login</Link>
+                        {Auth.loggedIn() ? (
+                            <>
+                            <Link className = 'bg-green-500 text-white rounded px-4 py-2' onClick={Auth.logout}>Logout</Link>
+                            </>
+                        ) : (
+                            <Link to="/login" className="bg-green-500 text-white rounded px-4 py-2">Login</Link>
+                        )}
                     </div>
 
                     <button className="md:hidden" onClick={toggleMobileMenu}>
