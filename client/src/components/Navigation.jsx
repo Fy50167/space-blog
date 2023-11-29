@@ -24,8 +24,6 @@ export default function Navigation() {
                     <div className="text-lg font-bold text-gray-800">Space Blog</div>
                     
                     <div className={`md:flex ${isMobileMenuOpen ? "flex" : "hidden"} flex-col md:flex-row`}>
-                        <Link to="/" className={`${getNavLinkClass('/')} text-black rounded px-4 py-2 md:mr-4`}>Home</Link>
-                            
                         {Auth.loggedIn() ? (
                             <>
                             <Link to={`/profile/${Auth.getProfile().data._id}`} className={`${getNavLinkClass(`/profile/${Auth.getProfile().data._id}`)} text-black rounded px-4 py-2 md:mr-4`}>Profile</Link>

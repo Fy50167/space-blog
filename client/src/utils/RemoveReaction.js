@@ -3,22 +3,22 @@ import { FaHeart } from "react-icons/fa";
 
 import { useMutation, useQuery } from "@apollo/client";
 
-import { REMOVE_REACTION } from "../../utils/mutations";
-import { GET_ME } from "../../utils/queries";
+import { REMOVE_REACTION } from "./mutations";
+import { GET_ME } from "./queries";
 
-const RemoveReaction = ({ photoId }) => {
+const RemoveReaction = async function ({ photoId }) {
   const { loading, data } = useQuery(GET_ME);
   const [removeReaction, { error }] = useMutation(REMOVE_REACTION);
 
   const userData = data?.me || {};
 
   try {
-    const { data } = removeReaction({
+    const { data } = await removeReaction({
       variables: {
-        photoId,
-        reactionAuthor: userData.username,
+        reactionId
       },
     });
+
   } catch (err) {
     console.error(err);
   }
