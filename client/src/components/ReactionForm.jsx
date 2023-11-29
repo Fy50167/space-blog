@@ -17,7 +17,9 @@ const ReactionForm = (photo) => {
     variables: { photoId: photo.data.date },
   });
   const reactions = data?.reactions || [];
-  console.log({reactions});
+
+  const usersReaction = reactions.find((element) => element.reactionAuthor === Auth.getProfile().data.username) || [];
+  console.log(usersReaction._id);
 
   const [addReaction] = useMutation(ADD_REACTION);
   const [removeReaction] = useMutation(REMOVE_REACTION);
@@ -33,7 +35,6 @@ const ReactionForm = (photo) => {
   
     event.preventDefault();
     setLike((prevState) => !prevState);
-
 
     if(!like){
       try {
@@ -53,7 +54,7 @@ const ReactionForm = (photo) => {
     } else {
       try {
         await removeReaction({
-          variables: { reactionId },
+          variables: { reactionId: usersReaction._id },
         });
       } catch (err) {
         console.error(err);

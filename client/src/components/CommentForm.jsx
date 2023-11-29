@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 
-
 import { ADD_COMMENT } from "../utils/mutations";
+import { GET_ME } from "../utils/queries";
 
 import { IoAddCircle } from "react-icons/io5";
 
