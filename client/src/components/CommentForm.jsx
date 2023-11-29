@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 
+import Auth from '../utils/auth';
 
 import { ADD_COMMENT } from "../utils/mutations";
-import { GET_ME } from "../utils/queries";
+//import { GET_ME } from "../utils/queries";
 
 import { IoAddCircle } from "react-icons/io5";
 
@@ -11,8 +12,7 @@ const CommentForm= ({photoId} ) => {
   const [commentText, setCommentText] = useState("");
   const [characterCount, setCharacterCount] = useState(0);
 
-  const { loading, data } = useQuery(GET_ME);
-  //const [addComment, { error }] = useMutation(ADD_COMMENT);
+  //const { loading, data } = useQuery(GET_ME);
   const [addComment, { error }] = useMutation(ADD_COMMENT);
 
   const userData = data?.me || {};
@@ -20,12 +20,12 @@ const CommentForm= ({photoId} ) => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log(userData);
-    console.log(photoId, commentText, userData.username);
+    //console.log(photoId, commentText, userData.username);
 
     const commentData = {
       photoId, 
       commentText, 
-      commentAuthor: userData.username
+      commentAuthor: Auth.getProfile().data.username
     }
     console.log(commentData);
     
