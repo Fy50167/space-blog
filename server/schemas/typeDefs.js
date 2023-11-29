@@ -36,7 +36,7 @@ const typeDefs = gql `
 
   type Query {
     user(username: String!): User
-    reactions: [Reaction]
+    reactions(photoId: String): [Reaction]
     reaction(reactionAuthor: String): [Reaction]
     comments(photoId: String): [Comment]
     me: User
