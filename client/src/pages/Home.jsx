@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Auth from "../utils/auth";
 
-import ReactionForm from "../components/Reactions/ReactionForm";
+import ReactionForm from "../components/ReactionForm";
 import CommentList from "../components/CommentList";
 
 import { FaMagnifyingGlass } from "react-icons/fa6";
