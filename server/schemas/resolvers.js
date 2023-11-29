@@ -8,8 +8,8 @@ const resolvers = {
     user: async (parent, { username }) => {
       return User.findOne({ username });
     },
-    reactions: async () => {
-      return Reaction.find({})
+    reactions: async (parent, { photoId }) => {
+      return Reaction.find({ photoId });
     }, //for loading all reactions
     reaction: async (parent, { reactionAuthor }) => {
       const params = reactionAuthor ? { reactionAuthor } : {};
@@ -17,7 +17,7 @@ const resolvers = {
     },//for user likes
     comments: async (parent, { photoId }) => {
       //const params = photoId ?  { photoId } : {};
-      return Comment.find({ photoId }).sort({ createdAt: -1 });
+      return Comment.find({ photoId }).sort({ createdAt: 1 });
     },//for comments on each post
     me: async (parent, args, context) => {
       if (context.user) {

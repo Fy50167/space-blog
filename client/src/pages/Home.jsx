@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
-import ReactionForm from "../components/ReactionForm";
+import { Link } from "react-router-dom";
+import Auth from "../utils/auth";
+
+import ReactionForm from "../components/Reactions/ReactionForm";
 import CommentList from "../components/CommentList";
+
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 export default function Home() {
@@ -8,8 +12,6 @@ export default function Home() {
   const [selectedApod, setSelectedApod] = useState(null);
   const [loadDate, setLoadDate] = useState(new Date());
   const apiKey = "5bPcUbrxdbPSFRmYDJch0sGZzieD2Y7XSGWezhbI"; // Your NASA API key
-
-  const [viewComments, setViewComments] = useState(false);
 
   useEffect(() => {
     const fetchApodData = async (date) => {
@@ -67,7 +69,6 @@ export default function Home() {
 
   return (
     <div className="page-content">
-
       <div className="gallery">
         {apodData.map((apod, index) => (
           <div key={index} className="item">
@@ -86,7 +87,18 @@ export default function Home() {
               <p>{apod?.date}</p>
               <p className="explanation">{apod?.explanation}</p>
             </div>
-            <CommentList photoId={apod?.date}/>
+            {Auth.loggedIn() ? (
+              <>
+                <CommentList photoId={apod?.date} />
+              </>
+            ) : (
+              <Link
+                to="/login"
+                className="bg-blue-200 text-white rounded px-4 py-2"
+              >
+                Login to view comments
+              </Link>
+            )}
           </div>
         ))}
       </div>
