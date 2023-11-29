@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import { BsFillSaveFill } from "react-icons/bs";
 import { BsSave } from "react-icons/bs";
+import { FaHeart } from "react-icons/fa";
 
 import Likes from "./Likes";
-
-import { useMutation, useQuery } from "@apollo/client";
-
-import { QUERY_REACTIONS } from "../utils/queries";
-import { ADD_REACTION, REMOVE_REACTION } from "../utils/mutations";
 
 import Auth from "../utils/auth";
 
@@ -23,8 +20,19 @@ const ReactionForm = (photo) => {
 
  
   return (
-    <div className="flex w-1/4 ml-2">
-      {Auth.loggedIn() && <Likes data ={photo}/>}
+    <div className="flex w-1/2 ml-2">
+      {Auth.loggedIn() ? (
+              <>
+                <Likes data ={photo}/>
+              </>
+            ) : (
+              <Link
+                to="/login"
+                className="flex w-1/8 p-2"
+              >
+                <FaHeart className="text-red-600 text-2xl"/>
+              </Link>
+            )}
       <h2 onClick={saveImage} className="w-1/4 p-2">
         {save ? (
           <BsFillSaveFill className="text-2xl text-white" />

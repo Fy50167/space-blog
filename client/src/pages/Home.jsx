@@ -6,6 +6,7 @@ import ReactionForm from "../components/ReactionForm";
 import CommentList from "../components/CommentList";
 
 import { FaMagnifyingGlass } from "react-icons/fa6";
+import { FaComments } from "react-icons/fa";
 
 export default function Home() {
   const [apodData, setApodData] = useState([]);
@@ -94,9 +95,9 @@ export default function Home() {
             ) : (
               <Link
                 to="/login"
-                className="bg-blue-200 text-white rounded px-4 py-2"
+                className="flex w-1/8 justify-center p-2"
               >
-                Login to view comments
+                <FaComments className="text-blue-600 text-2xl"/>
               </Link>
             )}
           </div>
