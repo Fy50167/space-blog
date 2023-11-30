@@ -12,7 +12,7 @@ export default function ProfilePage() {
   const [selectedApod, setSelectedApod] = useState(null);
   const [removeImage] = useMutation(REMOVE_IMAGE);
 
-  const { loading, data } = useQuery(GET_ME, {
+  const { loading, data, refetch } = useQuery(GET_ME, {
   });
 
   const user = data?.me || data?.user || {};
@@ -39,6 +39,7 @@ export default function ProfilePage() {
           photoId: id
         }
       });
+      refetch();
       console.log({data});
     } catch (err) {
       console.error(err);
