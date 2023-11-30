@@ -28,6 +28,8 @@ export default function ProfilePage() {
     );
   }
 
+  console.log(user.savedImages);
+
   return (
     <>
       <div className = {(user.savedImages.length === 0 ? 'page-content profile-page fill-page' : 'page-content')}>
@@ -41,10 +43,16 @@ export default function ProfilePage() {
           <div className = 'empty-gallery'>
             You don't have any saved images!
           </div>
-        :
-          <div className = 'profile-gallery'>
-            Saved Images
-           
+        :  
+          <div className = 'w-full p-4'>
+              <h3 className = 'text-black font-bold text-3xl mb-2'>Saved Images</h3>  
+              <div className = 'profile-gallery'>
+              {user.savedImages.map((apod, index) => (
+                <div key={index} className="item profile-item">
+                  {apod && <img src={apod.photoId}/>}
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>

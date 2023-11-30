@@ -49,6 +49,15 @@ body {
   object-fit: cover; /* Ensures the image covers the area */
 }
 
+
+
+.profile-item {
+  width: 40%;
+  min-width: 500px;
+  margin: 15px;
+}
+
+
 .caption {
   padding: 15px; /* Increased padding */
   text-align: center;
@@ -198,9 +207,10 @@ body {
 
 .profile-gallery {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
   padding: 20px;
+  width: 100%;
 }
 
 .profile-page {

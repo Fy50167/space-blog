@@ -19,7 +19,6 @@ export const Likes = (photo) => {
   });
 
   const reactions = data?.reactions || [];
-  console.log(photo.data.data.date, ":", reactions);
 
   const usersReaction =
     reactions.find(
@@ -68,7 +67,7 @@ export const Likes = (photo) => {
     setLike((prevState) => !prevState);
   };
   return (
-    <div className="flex w-1/2 ml-2">
+    <div className="flex w-1/4 ml-2">
       <h2 onClick={handleLikes} className="flex w-1/8 justify-between p-2">
         {like ? (
           <FaHeart className="text-red-600 text-2xl" />

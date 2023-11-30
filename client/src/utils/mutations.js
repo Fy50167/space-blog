@@ -30,11 +30,8 @@ export const ADD_USER = gql`
 `;
 
 export const SAVE_IMAGE = gql`
-  mutation saveImage($photoId: ID!) {
+  mutation saveImage($photoId: String!) {
     saveImage(photoId: $photoId) {
-      _id
-      username
-      email
       savedImages {
         photoId
       }
@@ -43,11 +40,8 @@ export const SAVE_IMAGE = gql`
 `;
 
 export const REMOVE_IMAGE = gql`
-  mutation removeImage($photoId: ID!) {
+  mutation removeImage($photoId: String!) {
     removeImage(photoId: $photoId) {
-      _id
-      username
-      email
       savedImages {
         photoId
       }

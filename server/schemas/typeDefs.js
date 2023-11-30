@@ -55,12 +55,11 @@ const typeDefs = gql `
     ): Auth
 
     saveImage(
-      photoId: String,
-      createdAt: String
+      photoId: String!
     ): User
 
     removeImage(
-      photoId: ID!
+      photoId: String!
     ): User
 
     addComment(
