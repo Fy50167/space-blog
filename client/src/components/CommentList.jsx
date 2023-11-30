@@ -15,13 +15,14 @@ const CommentList = ({ photoId }) => {
 
   const [removeComment, { error }] = useMutation(REMOVE_COMMENT);
 
-  const { loading, data } = useQuery(QUERY_COMMENTS, {
+  const { loading, data, refetch } = useQuery(QUERY_COMMENTS, {
     variables: { photoId: photoId },
   });
   const comments = data?.comments || [];
 
   const handleViewComments = () => {
     setViewComments((prevState) => !prevState);
+    refetch();
   };
 
   const handleDeleteComment = async (commentId) => {
