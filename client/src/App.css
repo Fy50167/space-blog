@@ -182,7 +182,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 
+  z-index: 3;
 }
 
 .fill-page {
