@@ -19,19 +19,19 @@ export default function Navigation() {
 
     return (
         <>
-            <nav className="fixed w-full bg-[#f0f0f0] shadow px-4 py-2 md:px-8">
+            <nav className="nav-z fixed w-full bg-[#f0f0f0] shadow px-4 py-2 md:px-8">
                 <div className="flex justify-between items-center mx-auto max-w-[1000px]">
                     <div className="text-lg font-bold text-gray-800">Space Blog</div>
                     
                     <div className={`md:flex ${isMobileMenuOpen ? "flex" : "hidden"} flex-col md:flex-row`}>
-                        <Link to='/' className={`${getNavLinkClass('/')} text-black rounded px-4 py-2 md:mr-4`}>Home</Link>
+                        <Link to='/' className={`${getNavLinkClass('/')} mobile-nav text-black rounded px-4 py-2 md:mr-4`}>Home</Link>
                         {Auth.loggedIn() ? (
                             <>
-                            <Link to={`/profile/${Auth.getProfile().data._id}`} className={`${getNavLinkClass(`/profile/${Auth.getProfile().data._id}`)} text-black rounded px-4 py-2 md:mr-4`}>Profile</Link>
-                            <Link className = 'bg-green-500 text-white rounded px-4 py-2' onClick={Auth.logout}>Logout</Link>
+                            <Link to={`/profile/${Auth.getProfile().data._id}`} className={`${getNavLinkClass(`/profile/${Auth.getProfile().data._id}`)} mobile-nav text-black rounded px-4 py-2 md:mr-4`}>Profile</Link>
+                            <Link className = 'mobile-nav bg-green-500 text-white rounded px-4 py-2' onClick={Auth.logout}>Logout</Link>
                             </>
                         ) : (
-                            <Link to="/login" className="bg-green-500 text-white rounded px-4 py-2">Login</Link>
+                            <Link to="/login" className="mobile-nav bg-green-500 text-white rounded px-4 py-2">Login</Link>
                         )}
                     </div>
 
