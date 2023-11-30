@@ -15,11 +15,11 @@ const CommentForm= ({photoId} ) => {
   //const { loading, data } = useQuery(GET_ME);
   const [addComment, { error }] = useMutation(ADD_COMMENT);
 
-  const userData = data?.me || {};
+  //const userData = data?.me || {};
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(userData);
+    //console.log(userData);
     //console.log(photoId, commentText, userData.username);
 
     const commentData = {
