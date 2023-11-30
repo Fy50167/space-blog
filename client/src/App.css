@@ -191,6 +191,11 @@ body {
 
 .login-form {
   width: 90%;
+  z-index: 3;
+}
+
+.signup {
+  z-index: 3;
 }
 
 .nav-link {

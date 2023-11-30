@@ -47,7 +47,7 @@ const Signup = () => {
 
   return (
     <div className="page-content fill-page">
-      <form onSubmit={handleFormSubmit} className="w-full max-w-sm">
+      <form onSubmit={handleFormSubmit} className="w-full max-w-sm signup">
         <div className="md:flex md:items-center mb-6">
           <div className="md:w-1/3">
             <label
